@@ -1,0 +1,23 @@
+name: ci
+on: push
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup fortran
+        uses: fortran-lang/setup-fortran@v1
+        with:
+          compiler: gcc
+          version: 13
+      - name: Compile
+        run: |
+          mkdir bin
+          gfortran -o bin/Test test.f90
+      - name: Test
+        run: ./bin/Test
