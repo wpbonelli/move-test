@@ -15,9 +15,16 @@ jobs:
         with:
           compiler: gcc
           version: 13
-      - name: Compile
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      - name: Install python dependencies
+        run: pip install -r requirements.txt
+      - name: Build
         run: |
-          mkdir bin
-          gfortran -o bin/Test test.f90
+          meson setup builddir --prefix=$PWD --libdir=bin
+          meson install -C builddir
       - name: Test
-        run: ./bin/Test
+        run: meson test -C builddir --verbose

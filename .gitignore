@@ -1,4 +1,5 @@
 **.mod
 bin/
+builddir/
 venv/
 .vscode/

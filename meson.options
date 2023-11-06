@@ -1,0 +1,5 @@
+option(
+    'buildname',
+    type: 'string',
+    value: 'move-test',
+    description: 'Optional build name')
