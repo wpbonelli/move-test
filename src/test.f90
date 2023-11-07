@@ -1,7 +1,9 @@
 program Test
     use StringModule
+    use stdlib_string_type
     character(len=:), allocatable :: raw, tmp
-    type(string_type) :: st
+    type(StringType) :: local_st
+    type(string_type) :: stdlib_st
 
     ! standalone
     raw = "hello world"
@@ -9,14 +11,13 @@ program Test
     call move_alloc(tmp, raw)
     print *, raw
 
-    ! explicit assignment
-    call assign(st, "hello world")
-    call move(st, st)
-    call print(st)
+    ! local StringType
+    local_st = "hello world"
+    call move_str(local_st, local_st)
+    call print_str(local_st)
 
-    ! assignment operator
-    st = "hello world"
-    call move(st, st)
-    call print(st)
-
+    ! stdlib_string_type
+    stdlib_st = "hello world"
+    call move(stdlib_st, stdlib_st)
+    print *, stdlib_st
 end program Test

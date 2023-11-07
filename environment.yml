@@ -1,0 +1,9 @@
+name: move-test
+channels:
+  - conda-forge
+dependencies:
+  - cmake
+  - fortls
+  - fypp
+  - meson
+  - ninja

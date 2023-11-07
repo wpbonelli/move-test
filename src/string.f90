@@ -1,40 +1,40 @@
 module StringModule
     implicit none
     private
-    public :: string_type
-    public :: assign
+    public :: StringType
     public :: assignment(=)
-    public :: move
-    public :: print
+    public :: assign_str
+    public :: move_str
+    public :: print_str
 
-    type :: string_type
+    type :: StringType
         sequence
         private
         character(len=:), allocatable :: raw
-    end type string_type
+    end type StringType
 
     interface assignment(=)
-        module procedure :: assign
+        module procedure :: assign_str
     end interface
 
 contains
 
-    elemental subroutine assign(st, str)
-        type(string_type), intent(inout) :: st
+    elemental subroutine assign_str(st, str)
+        type(StringType), intent(inout) :: st
         character(len=*), intent(in) :: str
         st%raw = str
-    end subroutine assign
+    end subroutine assign_str
 
-    elemental subroutine move(from, to)
-        type(string_type), intent(inout) :: from, to
+    elemental subroutine move_str(from, to)
+        type(StringType), intent(inout) :: from, to
         character(:), allocatable :: tmp
         call move_alloc(from%raw, tmp)
         call move_alloc(tmp, to%raw)
-    end subroutine move
+    end subroutine move_str
 
-    subroutine print(st)
-        type(string_type), intent(in) :: st
+    subroutine print_str(st)
+        type(StringType), intent(in) :: st
         print *, st%raw
-    end subroutine print
+    end subroutine print_str
 
 end module StringModule

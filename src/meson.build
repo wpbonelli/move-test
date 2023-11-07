@@ -1,10 +1,9 @@
-sources = [
-    'string.f90',
-    'test.f90'
-]
-str_lib = static_library('string', sources)
+str_lib = static_library(
+    'strlib',
+    'string.f90')
 str_exe = executable(
-    buildname,
+    'strexe',
     'test.f90',
     link_with: [str_lib],
+    dependencies: [fortran_stdlib],
     install: true)
